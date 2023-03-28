@@ -13,6 +13,9 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        {{-- 自作追加 --}}
+        <link rel="stylesheet" href="{{ asset('css/forum.css') }}"> 
+
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">

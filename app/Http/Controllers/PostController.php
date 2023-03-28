@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-// use宣言
+
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Models\Comment;
