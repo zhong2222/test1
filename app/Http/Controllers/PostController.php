@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Models\Comment;
+use App\Models\Like;
 
 class PostController extends Controller
 {
@@ -13,11 +14,13 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Post $post)
     {
+        $likes=Like::where('post_id', $post->id)->where('user_id', auth()->user()->id)->first();
         $posts=Post::orderBy('created_at','desc')->get();
         $user=auth()->user();
-        return view('post.index', compact('posts', 'user'));
+        // dd($posts);
+        return view('post.index', compact('posts', 'user','likes'));
     }
 
     /**
@@ -70,7 +73,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('post.show', compact('post'));
+        $like=Like::where('post_id', $post->id)->where('user_id', auth()->user()->id)->first();
+        return view('post.show', compact('post', 'like'));
     }
 
     /**
@@ -145,4 +149,12 @@ class PostController extends Controller
         $comments=Comment::where('user_id', $user)->orderBy('created_at', 'desc')->get();
         return view('post.mycomment', compact('comments'));
     }
+
+    public function mylike() {
+        $user=auth()->user()->id;
+        $likes=Like::where('user_id', $user)->orderBy('created_at', 'desc')->get();
+        return view('post.mylike', compact('likes'));
+    }
+
+
 }

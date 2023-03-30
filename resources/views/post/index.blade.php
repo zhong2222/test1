@@ -35,6 +35,7 @@
                                     <a href="{{route('post.show', $post)}}">{{ $post->title }}</a>
                                 </h1>
                             </div>
+
                     {{-- 修正部分ここまで --}}
 
                             <hr class="w-full">
@@ -53,9 +54,23 @@
                         @endif
                         <a href="{{route('post.show', $post)}}" style="color:white;">
                             <x-primary-button class="float-right">コメントする</x-primary-button>
-                        </a> 
+                        </a>
                         </div>
                     </div>
+                    {{-- いいね数表示 --}}
+                    @if ($post->likes->count())
+                        <div class="float-right">
+                            <div class="flex">
+                                <img src="{{asset('img/like.png')}}" width="30px">
+                                {{-- <span class="badge" > --}}
+                                    {{ $post->likes->count() }}
+                                {{-- </span> --}}
+                            </div>                               
+                        </div>
+                    @else
+                        <div class="float-right"><img src="{{asset('img/unlike.png')}}" width="30px"> </div>
+                    @endif
+
                 </div>
             </div>
         @endforeach

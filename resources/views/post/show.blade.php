@@ -38,6 +38,23 @@
                     </div>
                     <div class="flex justify-end mt-4">
 
+                        {{-- いいねボタン --}}
+
+                        {{-- <img src="{{asset('img/likebutton.png')}}" width="30px"> --}}
+                        
+                        <!-- もし$likeがあれば＝ユーザーが「いいね」をしていたら -->
+                        @if($like)
+                        <!-- 「いいね」取消用ボタンを表示 -->
+                            <a href="{{ route('unlike', $post) }}">
+                                <x-primary-button class="btnsetr">気になる</x-primary-button>
+                            </a>
+                        @else
+                        <!-- まだユーザーが「いいね」をしていなければ、「いいね」ボタンを表示 -->
+                            <a href="{{ route('like', $post) }}" >
+                                <x-primary-button class="btnsetg">気になる</x-primary-button>
+                            </a>
+                        @endif
+
                         @can('update', $post)
                         <a href="{{route('post.edit', $post)}}"><x-primary-button class="bg-teal-700 float-right">編集</x-primary-button></a>
                         @endcan
@@ -82,7 +99,6 @@
                         </div>
                     </div>
                     @endforeach
-
                     {{-- コメント欄追加部分 --}}
                     <div class="mt-4 mb-12">
                         <form method="post" action="{{route('comment.store')}}">

@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('avatar')->default('user_default.jpg')->after('name');
+        Schema::create('likes', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('post_id')->nullable();
+            $table->foreignId('user_id')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('avatar');
-        });
+        Schema::dropIfExists('likes');
     }
 };
